@@ -374,7 +374,7 @@ $list-group-link-color:          #555;
 $list-group-link-heading-color:  #333;
 
 // Panels
-$panel-bg:                    transparent;
+$panel-bg:                    rgba(0,0,0,.5);
 $panel-inner-border:          transparent;
 $panel-border-radius:         $border-radius-base;
 $panel-footer-bg:             rgba(0,0,0,.5);
@@ -555,4 +555,22 @@ body {
       border-color: rgba(255,255,255,.75);
     }
   }
+}
+
+#track-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    color: white;
+    font-size: 4em;
+  }
+}
+
+#game-answers {
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
