@@ -50,6 +50,8 @@ set :user,                       "root"
 set :runner,                     "www-data"
 set :admin_runner,               "www-data"
 
+default_run_options[:pty] = true
+
 # Password-less Deploys (Optional)
 #
 # 1. Locate your local public SSH key file. (Usually ~/.ssh/id_rsa.pub)
@@ -74,6 +76,7 @@ role :db,  LINODE_SERVER_HOSTNAME, :primary => true
 after 'deploy:update_code' do
   # Setup Configuration
   run "cp #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  run "cp #{shared_path}/config/settings/local.rb #{release_path}/config/settings/local.rb"
 
   # Compile Assets
   run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
