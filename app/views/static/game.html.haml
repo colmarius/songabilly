@@ -8,32 +8,6 @@
       #game-controls
 
 #game-answers
-  .container
-    .row
-      .col-md-12
-        %h3 Pick an answer:
-        .row
-          .col-md-6
-            .panel.panel-default
-              .panel-body
-                %h5 Artist
-                %h4 Title
-          .col-md-6
-            .panel.panel-default
-              .panel-body
-                %h5 Artist
-                %h4 Title
-        .row
-          .col-md-6
-            .panel.panel-default
-              .panel-body
-                %h5 Artist
-                %h4 Title
-          .col-md-6
-            .panel.panel-default
-              .panel-body
-                %h5 Artist
-                %h4 Title
 
 %script#trackListItemTemplate{type: 'text/template'}
   .media.inactive
@@ -57,5 +31,22 @@
       %button.btn.btn-primary.btn-lg.btn-block#button-play Play
       %button.btn.btn-primary.btn-lg.btn-block#button-stop Stop
       %button.btn.btn-primary.btn-lg.btn-block#button-next Next
+
+%script#gameAnswersTemplate{type: 'text/template'}
+  .container
+    .row
+      .col-md-12
+        %h3 Pick an answer:
+        .row
+          .col-md-6
+            .panel.panel-default
+              .panel-body
+                %h5 <%= answers[0].artist %>
+                %h4 <%= answers[0].title %>
+          .col-md-6
+            .panel.panel-default
+              .panel-body
+                %h5 <%= answers[1].artist %>
+                %h4 <%= answers[1].title %>
 
 =javascript_include_tag 'game'

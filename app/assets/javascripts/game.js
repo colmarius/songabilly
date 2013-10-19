@@ -4,10 +4,10 @@ var trackList = {
       id: '_1',
       clip: 'http://previews.7digital.com/clips/34/16237034.clip.mp3',
       answers: [{
-          author: 'John Bon Jovi',
+          artist: 'John Bon Jovi',
           title: 'Lullabe'
         }, {
-          author: 'Pincopallo',
+          artist: 'Pincopallo',
           title: 'Che due palle'
         }
       ]
@@ -44,6 +44,9 @@ Game.prototype.init = function() {
     self.trackViews.push(view);
   });
 
+  // Answers view
+  this.answersView = new GameAnswersView();
+
   // Events mixin
   _.extend(this, Backbone.Events);
 }
@@ -60,6 +63,8 @@ Game.prototype.bindEvents = function() {
   this.bind('skipTrack', this.skipTrack);
   this.bind('resumeTimer', this.resumeTimer);
   this.bind('pauseTimer', this.pauseTimer);
+  this.bind('answersRendered', this.answersRendered);
+  this.bind('answersRemoved', this.answersRemoved);
 }
 
 Game.prototype.skipTrack = function() {
@@ -68,7 +73,14 @@ Game.prototype.skipTrack = function() {
     this.currentTrack = 0;
   }
 
-  this.playTrack(this.currentTrack);
+  this.trackTransition();
+}
+
+Game.prototype.trackTransition = function() {
+  if(this.currentClip) {
+    this.currentClip.stop();
+  }
+  this.answersView.remove();
 }
 
 Game.prototype.playTrack = function(index) {
@@ -112,6 +124,19 @@ Game.prototype.pauseTimer = function() {
 Game.prototype.timerTick = function() {
   this.time -= 1;
   this.trigger('timerTick', this.time);
+}
+
+Game.prototype.answersRendered = function() {
+  this.playTrack(this.currentTrack);
+}
+
+Game.prototype.answersRemoved = function() {
+  console.log(this.tracks.at(this.currentTrack))
+  this.answersView = new GameAnswersView({
+    model: this.tracks.at(this.currentTrack)
+  });
+
+  this.answersView.render();
 }
 
 
