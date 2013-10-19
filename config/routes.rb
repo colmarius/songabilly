@@ -9,6 +9,8 @@ SpazzaRubini::Application.routes.draw do
   namespace :api do
     resources :game, only: [:index] do
     end
+    resources :genres, only: [:index] do
+    end
   end
 
   root 'static#index'
