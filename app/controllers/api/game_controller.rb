@@ -8,5 +8,6 @@ class Api::GameController < ApplicationController
   def check
     game_id = params[:id]
     track_id = params[:track_id]
+    render json: { status: ['good', 'bad'].sample }
   end
 end
