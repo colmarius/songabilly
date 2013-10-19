@@ -50,6 +50,8 @@ set :user,                       "root"
 set :runner,                     "www-data"
 set :admin_runner,               "www-data"
 
+default_run_options[:pty] = true
+
 # Password-less Deploys (Optional)
 #
 # 1. Locate your local public SSH key file. (Usually ~/.ssh/id_rsa.pub)
