@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019220139) do
+ActiveRecord::Schema.define(version: 20131019230050) do
 
   create_table "game_entries", force: true do |t|
     t.string   "external_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20131019220139) do
 
   create_table "track_entries", force: true do |t|
     t.integer  "game_entry_id"
-    t.string   "payload"
+    t.text     "payload"
     t.string   "genre"
     t.datetime "created_at"
     t.datetime "updated_at"
