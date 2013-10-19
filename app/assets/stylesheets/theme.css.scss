@@ -22,11 +22,11 @@ $gray-light:             darken(#efeff2, 5%);
 $gray-lighter:           #efeff2;
 
 // Brand colors
-$brand-primary:         #6395b1;
+$brand-primary:         #614491;
 $brand-success:         #e94700;
 $brand-warning:         #edcd3a;
 $brand-danger:          #d9534f; // default, needs override
-$brand-info:            #00be9c;
+$brand-info:            #16003b;
 
 // Scaffolding
 $body-bg:               #efeff2;
@@ -583,4 +583,25 @@ body {
   left: 0;
   bottom: 0;
   @include gradient-vertical(rgba(0,0,0,1), rgba(0,0,0,0))
+}
+
+.modal {
+  color: $brand-primary;
+
+  .media {
+    margin-left: 60px;
+    padding: 40px 0 20px;
+  }
+
+  .pull-left {
+    width: 60px;
+    height: 100px;
+    padding-top: 30px;
+    margin-top: -40px;
+
+    .glyphicon {
+      font-size: 4em;
+    }
+  }
+
 }

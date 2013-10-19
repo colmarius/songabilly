@@ -9,6 +9,19 @@
 
 #game-answers
 
+#loading-modal.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4.modal-title Loading...
+      .modal-body
+        .media
+          .pull-left
+            %span.glyphicon.glyphicon-music.animated.bounce
+          .media-body
+            %h4.media-heading We are preparing your challenge!
+            %p Wait a bit while we fetch some juicy tracks.
+
 %script#trackListItemTemplate{type: 'text/template'}
   .media.inactive
     .pull-left
@@ -51,14 +64,17 @@
   var game;
 
   $(document).ready(function() {
-    $.ajax({
-      url: "#{api_game_index_url}",
-      success: function(data) {
-        game = new Game({
-          trackList: data,
-          answersUrl: '/api/game/'
-        });
-        game.start();
-      }
-    });
+    $('#loading-modal').fadeIn();
+
+    // $.ajax({
+    //   url: "#{api_game_index_url}",
+    //   success: function(data) {
+    //     game = new Game({
+    //       trackList: data,
+    //       answersUrl: '/api/game/'
+    //     });
+    //     $('#loading-modal').fadeOut();
+    //     game.start();
+    //   }
+    // });
   });
