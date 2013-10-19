@@ -15,3 +15,5 @@
 //= require vendor/underscore
 //= require vendor/backbone
 //= require vendor/buzz
+//= require_tree ./models
+//= require_tree ./views

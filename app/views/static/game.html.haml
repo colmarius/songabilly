@@ -5,6 +5,7 @@
 
     .col-md-2
       #game-status
+      #game-controls
 
 #game-answers
   .container
@@ -53,9 +54,8 @@
 %script#gameControlsTemplate{type: 'text/template'}
   .panel.panel-default
     .panel-body
-      %button.btn.btn-primary.btn-lg.btn-block Play
-      %button.btn.btn-primary.btn-lg.btn-block Stop
-      %button.btn.btn-primary.btn-lg.btn-block Next
-      %button.btn.btn-primary.btn-lg.btn-block Previous
+      %button.btn.btn-primary.btn-lg.btn-block#button-play Play
+      %button.btn.btn-primary.btn-lg.btn-block#button-stop Stop
+      %button.btn.btn-primary.btn-lg.btn-block#button-next Next
 
 =javascript_include_tag 'game'

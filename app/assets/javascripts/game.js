@@ -15,71 +15,24 @@ var trackList = {
   ]
 }
 
-var TrackListItemModel = Backbone.Model.extend({
-  defaults: {
-    artist: '',
-    title: '',
-    status: 0
-  },
-  initialize: function() {
-    var clipSound = new buzz.sound(this.get('clip'), {
-      preload: true
-    });
-
-    this.set('clipSound', clipSound);
-  }
-});
-
-var TrackListItemsCollection = Backbone.Collection.extend({
-  model: TrackListItemModel
-});
-
-var TrackListItemView = Backbone.View.extend({
-  el: '#track-list',
-  template: $('#trackListItemTemplate').html(),
-  changeStatus: function() {
-    var statusIconClass = 'media-object glyphicon '
-    switch(this.model.get('status')) {
-      case 0:
-        statusIconClass += 'glyphicon-record'
-        break;
-      case 1:
-        statusIconClass += 'glyphicon-remove-circle'
-        break;
-      case 2:
-        statusIconClass += 'glyphicon-ok-circle'
-        break;
-    }
-
-    this.$el.find('span').attr('class', statusIconClass);
-  },
-  render: function() {
-    var html = _.template(this.template)(this.model.toJSON());
-    this.$el.append(html);
-    this.changeStatus();
-  }
-});
-
-var GameStatusView= Backbone.View.extend({
-  el: '#game-status',
-  template: $('#gameStatusTemplate').html(),
-  render: function() {
-    var html = _.template(this.template)();
-    this.$el.append(html);
-  }
-});
-
 Game = function(options) {
   this.tracks = new TrackListItemsCollection(options.trackList.tracks);
+  this.currentTrack = 0;
+  this.currentClip = null;
   this.trackViews = [];
+  this.timer = false;
+  this.time = options.time || 60000;
 
   this.init();
+  this.bindEvents();
 }
 
 Game.prototype.init = function() {
-  // Game status view
-  this.gameStatusView = new GameStatusView({});
-  this.gameStatusView.render();
+  // Game status
+  this.gameStatus = new GameStatusView({});
+
+  // Game controls
+  this.gameControls = new GameControlsView({});
 
   // Track views
   var self = this;
@@ -88,11 +41,84 @@ Game.prototype.init = function() {
       model: track
     });
 
-    view.render();
     self.trackViews.push(view);
+  });
+
+  // Events mixin
+  _.extend(this, Backbone.Events);
+}
+
+Game.prototype.start = function() {
+  this.gameStatus.render();
+  this.gameControls.render();
+  _.each(this.trackViews, function(view) {
+    view.render();
   });
 }
 
-var game = new Game({
-  trackList: trackList
-});
+Game.prototype.bindEvents = function() {
+  this.bind('skipTrack', this.skipTrack);
+  this.bind('resumeTimer', this.resumeTimer);
+  this.bind('pauseTimer', this.pauseTimer);
+}
+
+Game.prototype.skipTrack = function() {
+  this.currentTrack += 1;
+  if(this.currentTrack >= this.tracks.length) {
+    this.currentTrack = 0;
+  }
+
+  this.playTrack(this.currentTrack);
+}
+
+Game.prototype.playTrack = function(index) {
+  var track = this.tracks.at(index);
+  var clip = track.get('clipSound');
+
+  // Unbind events
+  if(this.currentClip) {
+    this.currentClip.stop();
+    this.currentClip.unbind('play');
+    this.currentClip.unbind('pause');
+  }
+
+  // Bind events
+  this.currentClip = clip;
+
+  this.currentClip.bind('play', function() {
+    game.trigger('resumeTimer', this);
+  });
+
+  this.currentClip.bind('pause', function() {
+    game.trigger('pauseTimer', this);
+  });
+
+  // Play clip
+  clip.play();
+}
+
+Game.prototype.resumeTimer = function(clip) {
+  var self = this;
+  this.timer = setInterval(function() {
+    self.timerTick();
+  }, 1);
+}
+
+Game.prototype.pauseTimer = function() {
+  clearInterval(this.timer);
+  console.log('pausing', this.timer)
+}
+
+Game.prototype.timerTick = function() {
+  this.time -= 1;
+  this.trigger('timerTick', this.time);
+}
+
+
+var game;
+$(document).ready(function() {
+  game = new Game({
+    trackList: trackList
+  });
+  game.start();
+})

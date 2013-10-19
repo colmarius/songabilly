@@ -377,7 +377,7 @@ $list-group-link-heading-color:  #333;
 $panel-bg:                    rgba(0,0,0,.5);
 $panel-inner-border:          transparent;
 $panel-border-radius:         $border-radius-base;
-$panel-footer-bg:             rgba(0,0,0,.5);
+$panel-footer-bg:             transparent;
 
 $panel-default-text:          $gray-dark;
 $panel-default-border:        transparent;
@@ -580,6 +580,5 @@ body {
   right: 0;
   left: 0;
   bottom: 0;
-  // background-color: rgba(0,0,0,.7);
   @include gradient-vertical(rgba(0,0,0,1), rgba(0,0,0,0))
 }
