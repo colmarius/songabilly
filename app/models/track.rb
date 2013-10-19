@@ -17,7 +17,10 @@ class Track
   end
 
   def get_name(track)
-    "#{track[:artist_name]} : #{track[:title]}"
+    {
+      artist: track[:artist_name],
+      title: track[:title]
+    }
   end
 
   def to_json
