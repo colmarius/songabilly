@@ -12,5 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require vendor/underscore
+//= require vendor/backbone
+//= require vendor/buzz
+//= require_tree ./models
+//= require_tree ./views

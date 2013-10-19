@@ -1,0 +1,41 @@
+.container
+
+  %h1 Song-o-matic
+  %p Lorem ipsum dolor sit amet.
+
+  .row
+    .col-md-12
+
+  .row
+    .col-md-3
+      .panel.panel-default.genre-selection.selected{data: {genre: 'jazz'}}
+        %img.img-responsive{:src => "http://lorempixel.com/400/400", :alt => ""}/
+        .panel-footer
+          Jazz
+    .col-md-3
+      .panel.panel-default.genre-selection{data: {genre: 'jazz'}}
+        %img.img-responsive{:src => "http://lorempixel.com/400/400", :alt => ""}/
+        .panel-footer
+          Jazz
+    .col-md-3
+      .panel.panel-default.genre-selection{data: {genre: 'jazz'}}
+        %img.img-responsive{:src => "http://lorempixel.com/400/400", :alt => ""}/
+        .panel-footer
+          Jazz
+    .col-md-3
+      .panel.panel-default.genre-selection{data: {genre: 'jazz'}}
+        %img.img-responsive{:src => "http://lorempixel.com/400/400", :alt => ""}/
+        .panel-footer
+          Jazz
+
+  .row
+    .col-md-12
+      %form.form-inline{action: "#{game_path}", method: 'post'}
+        =tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+        .row
+          .col-md-10
+            %input.input-lg.form-control{type: "text", name: 'genre', placeholder: 'Select a genre'}/
+          .col-md-2
+            %button.btn.btn-block.btn-lg.btn-primary Let's go!
+
+=javascript_include_tag 'index'
