@@ -9,7 +9,7 @@ SpazzaRubini::Application.routes.draw do
   namespace :api do
     resources :game, only: [:index] do
       member do
-        get :check
+        post :check
       end
     end
     resources :genres, only: [:index] do
