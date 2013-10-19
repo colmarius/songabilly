@@ -50,3 +50,15 @@
                 %h4 <%= answers[1].title %>
 
 =javascript_include_tag 'game'
+:javascript
+  $(document).ready(function() {
+    $.ajax({
+      url: "#{api_game_index_url}",
+      success: function(data) {
+        game = new Game({
+          trackList: data
+        });
+        game.start();
+      }
+    });
+  });
