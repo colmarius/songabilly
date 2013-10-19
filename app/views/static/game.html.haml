@@ -37,31 +37,26 @@
     .row
       .col-md-12
         %h3 Pick an answer:
-        .row
-          .col-md-4
-            .panel.panel-default
-              .panel-body
-                %h5 <%= answers[0].artist %>
-                %h4 <%= answers[0].title %>
-          .col-md-4
-            .panel.panel-default
-              .panel-body
-                %h5 <%= answers[1].artist %>
-                %h4 <%= answers[1].title %>
-          .col-md-4
-            .panel.panel-default
-              .panel-body
-                %h5 <%= answers[2].artist %>
-                %h4 <%= answers[2].title %>
+        .row#answers-list
+
+%script#gameAnswerTemplate{type: 'text/template'}
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        %h5 <%= artist %>
+        %h4 <%= title %>
 
 =javascript_include_tag 'game'
 :javascript
+  var game;
+
   $(document).ready(function() {
     $.ajax({
       url: "#{api_game_index_url}",
       success: function(data) {
         game = new Game({
-          trackList: data
+          trackList: data,
+          answersUrl: '/api/game/'
         });
         game.start();
       }

@@ -17,11 +17,15 @@
 
 Game = function(options) {
   this.tracks = new TrackListItemsCollection(options.trackList.tracks);
+  this.currentAnswers = new AnswerItemsCollection({
+    url: options.answersUrl
+  });
   this.currentTrack = 0;
   this.currentClip = null;
   this.trackViews = [];
   this.timer = false;
   this.time = options.time || 60000;
+  this.timeIncrement = 10;
 
   this.init();
   this.bindEvents();
@@ -65,6 +69,7 @@ Game.prototype.bindEvents = function() {
   this.bind('pauseTimer', this.pauseTimer);
   this.bind('answersRendered', this.answersRendered);
   this.bind('answersRemoved', this.answersRemoved);
+  this.bind('answerSelected', this.answerSelected);
 }
 
 Game.prototype.skipTrack = function() {
@@ -126,7 +131,7 @@ Game.prototype.resumeTimer = function(clip) {
   var self = this;
   this.timer = setInterval(function() {
     self.timerTick();
-  }, 1);
+  }, this.timeIncrement);
 }
 
 Game.prototype.pauseTimer = function() {
@@ -134,7 +139,7 @@ Game.prototype.pauseTimer = function() {
 }
 
 Game.prototype.timerTick = function() {
-  this.time -= 1;
+  this.time -= this.timeIncrement;
   this.trigger('timerTick', this.time);
 }
 
@@ -143,12 +148,13 @@ Game.prototype.answersRendered = function() {
 }
 
 Game.prototype.answersRemoved = function() {
-  this.answersView = new GameAnswersView({
-    model: this.tracks.at(this.currentTrack)
-  });
-
+  var trackModel = this.tracks.at(this.currentTrack);
+  this.currentAnswers.reset(trackModel.get('answers'));
+  this.answersView.model = trackModel;
   this.answersView.render();
 }
 
-
-var game;
+Game.prototype.answerSelected = function(cid) {
+  var answer = this.currentAnswers.get(cid);
+  console.log(answer.attributes);
+}

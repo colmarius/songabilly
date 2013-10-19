@@ -2,12 +2,26 @@ GameAnswersView = Backbone.View.extend({
   el: '#game-answers',
   template: '#gameAnswersTemplate',
   events: {
-    // 'click #button-next': 'nextTrack'
+    'click .panel-body': 'answerSelected'
+  },
+  initialize: function() {
+    this.answerViews = [];
   },
   render: function() {
     var $template = $(this.template).html();
     var html = _.template($template)(this.model.toJSON());
-    this.$el.append(html);
+
+    this.$el.html(html);
+
+    // Render answer views
+    game.currentAnswers.each(function(answer) {
+      var answerView = new GameAnswerView({
+        model: answer
+      });
+
+      answerView.render();
+    });
+
     this.$el.animate({
       bottom: 0
     }, 500, function() {
@@ -22,5 +36,9 @@ GameAnswersView = Backbone.View.extend({
       self.$el.empty();
       game.trigger('answersRemoved');
     });
+  },
+  answerSelected: function(e) {
+    $answerEl = $(e.currentTarget);
+    game.trigger('answerSelected', $answerEl.data('cid'))
   }
 });
