@@ -5,7 +5,7 @@ module Trackable
 
     GenreTypes = [ 'genre-radio' ]
     Buckets = [ 'id:7digital-US', 'tracks' ]
-    Genres = ['jazz', 'blues']
+    Genres = Genre.all_names.sample(1)
 
     attr_reader :id, :answers, :correct_answer, :preview_url
 

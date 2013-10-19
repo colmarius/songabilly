@@ -3,6 +3,10 @@ module GenreTypes
 
   included do
 
+    def self.all_names
+      @all_names ||= all.map{ |genre| genre['name'] }
+    end
+
     def self.all
       @all ||= dumped_payload.sort_by{ |genre| genre['name'] }.uniq
     end
