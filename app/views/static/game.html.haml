@@ -64,17 +64,19 @@
   var game;
 
   $(document).ready(function() {
-    $('#loading-modal').fadeIn();
-
-    // $.ajax({
-    //   url: "#{api_game_index_url}",
-    //   success: function(data) {
-    //     game = new Game({
-    //       trackList: data,
-    //       answersUrl: '/api/game/'
-    //     });
-    //     $('#loading-modal').fadeOut();
-    //     game.start();
-    //   }
-    // });
+    $('#loading-modal').fadeIn(400, initGame);
   });
+
+  function initGame() {
+    $.ajax({
+      url: "#{api_game_index_url}",
+      success: function(data) {
+        game = new Game({
+          trackList: data,
+          answersUrl: '/api/game/'
+        });
+        $('#loading-modal').fadeOut();
+        game.start();
+      }
+    });
+  }
