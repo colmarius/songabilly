@@ -11,6 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20131019220139) do
+
+  create_table "game_entries", force: true do |t|
+    t.string   "external_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "guess_tracks", force: true do |t|
+    t.string   "payload"
+    t.string   "genre"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "track_entries", force: true do |t|
+    t.integer  "game_entry_id"
+    t.string   "payload"
+    t.string   "genre"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "track_entries", ["game_entry_id"], name: "index_track_entries_on_game_entry_id", using: :btree
 
 end
