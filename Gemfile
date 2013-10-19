@@ -12,3 +12,9 @@ gem 'jbuilder', '~> 1.2'
 gem 'capistrano', '~> 2.15'
 gem 'simpleconfig'
 gem 'nestling'
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+                              :github => 'anjlab/bootstrap-rails',
+                              :branch => '3.0.0'
+gem 'haml-rails'
+gem 'sass-rails', '~> 4.0.0'
+gem 'rails-backbone'
