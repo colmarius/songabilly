@@ -17,4 +17,3 @@ gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
                               :branch => '3.0.0'
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
-gem 'rails-backbone'
