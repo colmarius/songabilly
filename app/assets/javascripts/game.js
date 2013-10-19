@@ -1,19 +1,19 @@
-var trackList = {
-  id: 'Titolo tracklist',
-  tracks: [{
-      id: '_1',
-      clip: 'http://previews.7digital.com/clips/34/16237034.clip.mp3',
-      answers: [{
-          artist: 'John Bon Jovi',
-          title: 'Lullabe'
-        }, {
-          artist: 'Pincopallo',
-          title: 'Che due palle'
-        }
-      ]
-    }
-  ]
-}
+// var trackList = {
+//   id: 'Titolo tracklist',
+//   tracks: [{
+//       id: '_1',
+//       clip: 'http://previews.7digital.com/clips/34/16237034.clip.mp3',
+//       answers: [{
+//           artist: 'John Bon Jovi',
+//           title: 'Lullabe'
+//         }, {
+//           artist: 'Pincopallo',
+//           title: 'Che due palle'
+//         }
+//       ]
+//     }
+//   ]
+// }
 
 Game = function(options) {
   this.tracks = new TrackListItemsCollection(options.trackList.tracks);
@@ -141,9 +141,3 @@ Game.prototype.answersRemoved = function() {
 
 
 var game;
-$(document).ready(function() {
-  game = new Game({
-    trackList: trackList
-  });
-  game.start();
-})

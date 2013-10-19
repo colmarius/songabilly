@@ -5,7 +5,7 @@ var TrackListItemModel = Backbone.Model.extend({
     status: 0
   },
   initialize: function() {
-    var clipSound = new buzz.sound(this.get('clip'), {
+    var clipSound = new buzz.sound(this.get('preview_url'), {
       preload: true
     });
 
