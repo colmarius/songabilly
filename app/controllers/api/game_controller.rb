@@ -2,7 +2,7 @@ class Api::GameController < ApplicationController
   respond_to :json
 
   def index
-    render json: {:hello= => 'world'}
+    render json: Game.new.to_json
   end
 
   def check
