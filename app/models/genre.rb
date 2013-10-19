@@ -1,3 +1,3 @@
-class Genre
-  include GenreTypes
+class Genre < ActiveRecord::Base
+  has_many :tracks
 end
