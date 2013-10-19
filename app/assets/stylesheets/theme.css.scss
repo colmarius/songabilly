@@ -562,9 +562,16 @@ body {
   padding: 0;
   list-style: none;
 
-  li {
+  .media {
     color: white;
-    font-size: 4em;
+    .glyphicon {
+      font-size: 4em;
+      margin-right: 10px;
+    }
+
+    &.inactive {
+      @include opacity(.5);
+    }
   }
 }
 
@@ -573,4 +580,6 @@ body {
   right: 0;
   left: 0;
   bottom: 0;
+  // background-color: rgba(0,0,0,.7);
+  @include gradient-vertical(rgba(0,0,0,1), rgba(0,0,0,0))
 }

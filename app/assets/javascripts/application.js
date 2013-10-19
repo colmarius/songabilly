@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require vendor/underscore
+//= require vendor/backbone
+//= require vendor/buzz
