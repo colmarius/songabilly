@@ -2,7 +2,8 @@ class Api::GameController < ApplicationController
   respond_to :json
 
   def index
-    render json: Game.new.to_json
+    genre = Genre.all_names.sample(1)
+    render json: GameEntry.create_new(genre).to_json
   end
 
   def check
