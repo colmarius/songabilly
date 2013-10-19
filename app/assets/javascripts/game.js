@@ -80,12 +80,21 @@ Game.prototype.trackTransition = function() {
   if(this.currentClip) {
     this.currentClip.stop();
   }
+
+  // Deactivate bullets
+  _.each(this.trackViews, function(view) {
+    view.deactivate();
+  });
+
   this.answersView.remove();
 }
 
 Game.prototype.playTrack = function(index) {
   var track = this.tracks.at(index);
   var clip = track.get('clipSound');
+
+  // Refresh ui
+  this.trackViews[index - 1].activate();
 
   // Unbind events
   if(this.currentClip) {
@@ -105,6 +114,10 @@ Game.prototype.playTrack = function(index) {
     game.trigger('pauseTimer', this);
   });
 
+  this.currentClip.bind('ended', function() {
+    game.trigger('resumeTimer', this);
+  });
+
   // Play clip
   clip.play();
 }
@@ -118,7 +131,6 @@ Game.prototype.resumeTimer = function(clip) {
 
 Game.prototype.pauseTimer = function() {
   clearInterval(this.timer);
-  console.log('pausing', this.timer)
 }
 
 Game.prototype.timerTick = function() {
@@ -131,7 +143,6 @@ Game.prototype.answersRendered = function() {
 }
 
 Game.prototype.answersRemoved = function() {
-  console.log(this.tracks.at(this.currentTrack))
   this.answersView = new GameAnswersView({
     model: this.tracks.at(this.currentTrack)
   });

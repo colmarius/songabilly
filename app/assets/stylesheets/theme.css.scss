@@ -564,13 +564,15 @@ body {
 
   .media {
     color: white;
+    @include opacity(.5);
+
     .glyphicon {
       font-size: 4em;
       margin-right: 10px;
     }
 
-    &.inactive {
-      @include opacity(.5);
+    &.active {
+      @include opacity(1);
     }
   }
 }
