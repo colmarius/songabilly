@@ -3,23 +3,14 @@ class Api::TrackController < ApplicationController
 
   def answer
     track = TrackEntry.find(params[:id])
+    result = track.is_correct?(params['check_id']) ? 'correct' : 'wrong'
 
-    if !track.is_correct? params['check_id']
-      render json: {
-        result: 'wrong',
+    render json: {
+        result: result,
         correct: {
           artist: track.correct_answer[:artist],
           title: track.correct_answer[:title]
         }
       }
-    else
-      render json: {
-        result: 'correct',
-        correct: {
-          artist: track.correct_answer[:artist],
-          title: track.correct_answer[:title]
-        }
-      }
-    end
   end
 end
