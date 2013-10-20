@@ -1,22 +1,5 @@
-// var trackList = {
-//   id: 'Titolo tracklist',
-//   tracks: [{
-//       id: '_1',
-//       clip: 'http://previews.7digital.com/clips/34/16237034.clip.mp3',
-//       answers: [{
-//           artist: 'John Bon Jovi',
-//           title: 'Lullabe'
-//         }, {
-//           artist: 'Pincopallo',
-//           title: 'Che due palle'
-//         }
-//       ]
-//     }
-//   ]
-// }
-
 Game = function(options) {
-  this.tracks = new TrackListItemsCollection(options.trackList.tracks);
+  this.quizzes = new QuizCollection(options.trackList.quizzes);
   this.currentAnswers = new AnswerItemsCollection({
     url: options.answersUrl
   });
@@ -41,7 +24,7 @@ Game.prototype.init = function() {
 
   // Track views
   var self = this;
-  this.tracks.each(function(track) {
+  this.quizzes.each(function(track) {
     var view = new TrackListItemView({
       model: track
     });
@@ -75,7 +58,7 @@ Game.prototype.bindEvents = function() {
 
 Game.prototype.skipTrack = function() {
   this.currentTrack += 1;
-  if(this.currentTrack >= this.tracks.length) {
+  if(this.currentTrack >= this.quizzes.length) {
     this.currentTrack = 0;
   }
 
@@ -96,7 +79,7 @@ Game.prototype.trackTransition = function() {
 }
 
 Game.prototype.playTrack = function(index) {
-  var track = this.tracks.at(index);
+  var track = this.quizzes.at(index);
   var clip = track.get('clipSound');
 
   // Refresh ui
@@ -149,7 +132,7 @@ Game.prototype.answersRendered = function() {
 }
 
 Game.prototype.answersRemoved = function() {
-  var trackModel = this.tracks.at(this.currentTrack);
+  var trackModel = this.quizzes.at(this.currentTrack);
   this.currentAnswers.reset(trackModel.get('answers'));
   this.answersView.model = trackModel;
   this.answersView.render();
@@ -169,7 +152,7 @@ Game.prototype.answerSelected = function(track, answerCid) {
 
 
 Game.prototype.answerChecked = function(answer) {
-  var track = this.tracks.get(answer.get('track_id'));
+  var track = this.quizzes.get(answer.get('track_id'));
   var result = answer.get('result') == 'correct' ? 2: 1;
   track.set({
     status: result,
