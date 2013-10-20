@@ -539,6 +539,7 @@ html, body {
 body {
   @include gradient-radial(#614491, #16003b);
   background-attachment: fixed;
+  padding-top: 40px;
 }
 
 .container .jumbotron {
@@ -598,6 +599,10 @@ body {
   border: none;
   background-color: white;
   color: $brand-primary;
+}
+
+#loading-modal {
+  margin-top: 100px;
 }
 
 // Panels
