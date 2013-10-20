@@ -1,5 +1,4 @@
-class Api::TrackController < ApplicationController
-  respond_to :json
+class Api::TrackController < Api::BaseController
 
   def answer
     track = TrackEntry.find(params[:id])

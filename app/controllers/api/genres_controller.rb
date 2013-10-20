@@ -1,7 +1,6 @@
-class Api::GenresController < ApplicationController
-  respond_to :json
+class Api::GenresController < Api::BaseController
 
   def index
-    render json: Genre.all.to_json
+    render json: Genre.all
   end
 end
