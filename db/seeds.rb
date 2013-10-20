@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+genres = %w[pop jazz blues rock country raggae funk latin]
+
+genres.each do |genre|
+  Genre.find_or_create_by(name: genre)
+end
