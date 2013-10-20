@@ -28,7 +28,6 @@ class TrackEntry < ActiveRecord::Base
   def to_json
     {
       id: id,
-      correct_answer: correct_answer,
       preview_url: preview_url,
       answers: answers
     }
