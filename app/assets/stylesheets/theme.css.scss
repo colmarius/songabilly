@@ -631,6 +631,14 @@ body {
   }
 }
 
+#game-controls {
+  span.glyphicon {
+    display: block;
+    font-size: 80px;
+    height: 100px;
+  }
+}
+
 #game-answers {
   position: fixed;
   right: 0;

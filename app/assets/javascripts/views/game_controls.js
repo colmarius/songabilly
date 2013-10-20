@@ -2,18 +2,36 @@ GameControlsView = Backbone.View.extend({
   el: '#game-controls',
   template: '#gameControlsTemplate',
   events: {
-    'click #button-play': 'firstTrack',
-    'click #button-next': 'nextTrack'
+    'click #game-button': 'switchStatus'
+  },
+  status: 0,
+  changeStatus: function() {
+    var statusIconClass = 'media-object glyphicon '
+    switch(this.status) {
+      case 0:
+        statusIconClass += '.glyphicon glyphicon-off'
+        break;
+      case 1:
+        statusIconClass += 'glyphicon glyphicon-play-circle'
+        break;
+      case 2:
+        statusIconClass += 'glyphicon glyphicon-refresh'
+        break;
+    }
+
+    this.$el.find('.glyphicon').attr('class', statusIconClass);
+    var labels = ['Start', 'Can you guess it?', 'Loading'];
+    this.$el.find('.gameStatus').text(labels[this.status]);
   },
   render: function() {
     var $template = $(this.template).html();
     var html = _.template($template)();
     this.$el.append(html);
+    this.changeStatus();
   },
-  firstTrack: function() {
-    game.trigger('firstTrack');
-  },
-  nextTrack: function() {
-    game.trigger('skipTrack');
+  switchStatus: function() {
+    var statuses = [1, 2, 1];
+    this.status = statuses[this.status];
+    this.changeStatus();
   }
 });

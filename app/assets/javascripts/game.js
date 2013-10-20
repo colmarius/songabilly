@@ -26,6 +26,7 @@ Game = function(options) {
   this.timer = false;
   this.time = options.time || 60000;
   this.timeIncrement = 10;
+  this.status = 0;
 
   this.init();
   this.bindEvents();
@@ -36,7 +37,7 @@ Game.prototype.init = function() {
   this.gameStatus = new GameStatusView({});
 
   // Game controls
-  this.gameControls = new GameControlsView({});
+  this.gameControls = new GameControlsView();
 
   // Track views
   var self = this;
