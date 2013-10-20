@@ -47,5 +47,9 @@ TrackListItemView = Backbone.View.extend({
   },
   timeUpdate: function(total, elapsed) {
     this.$barEl.width(Math.round(elapsed / total * 100) + '%');
+  },
+  slide: function(index) {
+    var offset = 95 * index;
+    // this.$itemEl.css('margin-top', -offset);
   }
 });

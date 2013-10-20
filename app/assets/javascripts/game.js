@@ -95,10 +95,15 @@ Game.prototype.trackTransition = function() {
   }
 
   // Deactivate bullets
+  var self = this;
   _.each(this.trackViews, function(view) {
     view.deactivate();
+    view.slide(self.currentTrack);
   });
 
+  $('#track-list').animate({
+    'margin-top': 200 - this.currentTrack * 95
+  }, 500);
   this.answersView.remove();
 }
 
