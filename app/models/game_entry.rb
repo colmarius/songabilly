@@ -10,6 +10,18 @@ class GameEntry < ActiveRecord::Base
     }
   end
 
+  def has_correct?(track_answers)
+    received = track_answers.map { |t|
+      [t[:track_id], t[:answer_id]]
+    }.sort
+
+    correct = track_entries.map { |t|
+      [t.id, t.correct_answer[:answer_id]]
+    }.sort
+
+    received == correct
+  end
+
   def self.create_new(genre)
     game = GameEntry.new
     game.track_entries = TrackEntry.generate(genre, 10)
