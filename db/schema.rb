@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131020033832) do
+ActiveRecord::Schema.define(version: 20131020062226) do
 
   create_table "artists", force: true do |t|
     t.string   "name"
@@ -74,5 +74,13 @@ ActiveRecord::Schema.define(version: 20131020033832) do
 
   add_index "tracks", ["artist_id"], name: "index_tracks_on_artist_id", using: :btree
   add_index "tracks", ["genre_id"], name: "index_tracks_on_genre_id", using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "username"
+    t.string   "password_digest"
+    t.boolean  "guest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

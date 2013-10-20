@@ -15,3 +15,6 @@ gem 'nestling'
 gem 'anjlab-bootstrap-rails', '~> 3.0.0.3', :require => 'bootstrap-rails'
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
+
+# Use ActiveModel has_secure_password
+gem 'bcrypt-ruby', '~> 3.0.0'
