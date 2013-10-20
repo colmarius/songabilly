@@ -616,6 +616,10 @@ body {
     color: white;
     @include opacity(.5);
 
+    .pull-left {
+      height: 65px;
+    }
+
     .glyphicon {
       font-size: 4em;
       margin-right: 10px;
@@ -644,6 +648,7 @@ body {
   }
 
   .pull-left {
+    display: block;
     width: 60px;
     height: 100px;
     padding-top: 30px;

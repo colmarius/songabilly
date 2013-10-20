@@ -169,8 +169,9 @@ Game.prototype.answerSelected = function(track, answerCid) {
 
 Game.prototype.answerChecked = function(answer) {
   var track = this.tracks.get(answer.get('track_id'));
+  var result = answer.get('result') == 'correct' ? 2: 1;
   track.set({
-    result: answer.get('result'),
+    status: result,
     artist: answer.get('correct').artist,
     title: answer.get('correct').title
   });
