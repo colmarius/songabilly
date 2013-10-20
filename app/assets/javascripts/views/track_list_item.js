@@ -15,7 +15,9 @@ TrackListItemView = Backbone.View.extend({
         break;
     }
 
-    this.$el.find('span').attr('class', statusIconClass);
+    this.$itemEl.find('span').attr('class', statusIconClass);
+    this.$itemEl.find('h4').text(this.model.get('artist'))
+    this.$itemEl.find('h5').text(this.model.get('title'))
   },
   render: function() {
     var $template = $(this.template).html();
@@ -26,6 +28,11 @@ TrackListItemView = Backbone.View.extend({
   },
   activate: function() {
     this.$itemEl.addClass('active');
+    var self = this;
+
+    this.model.on('change:status', function() {
+      self.changeStatus.call(self);
+    });
   },
   deactivate: function() {
     this.$itemEl.removeClass('active');

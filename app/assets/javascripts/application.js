@@ -13,6 +13,7 @@
 //= require jquery
 //= require vendor/underscore
 //= require vendor/backbone
+//= require vendor/backbone.rails
 //= require vendor/typeahead
 //= require vendor/buzz
 //= require_tree ./models

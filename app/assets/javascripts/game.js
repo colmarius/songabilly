@@ -20,12 +20,13 @@ Game = function(options) {
   this.currentAnswers = new AnswerItemsCollection({
     url: options.answersUrl
   });
-  this.currentTrack = 0;
+  this.currentTrack = -1;
   this.currentClip = null;
   this.trackViews = [];
   this.timer = false;
   this.time = options.time || 60000;
   this.timeIncrement = 10;
+  this.status = 0;
 
   this.init();
   this.bindEvents();
@@ -36,7 +37,7 @@ Game.prototype.init = function() {
   this.gameStatus = new GameStatusView({});
 
   // Game controls
-  this.gameControls = new GameControlsView({});
+  this.gameControls = new GameControlsView();
 
   // Track views
   var self = this;
@@ -99,7 +100,7 @@ Game.prototype.playTrack = function(index) {
   var clip = track.get('clipSound');
 
   // Refresh ui
-  this.trackViews[index - 1].activate();
+  this.trackViews[index].activate();
 
   // Unbind events
   if(this.currentClip) {
@@ -154,7 +155,27 @@ Game.prototype.answersRemoved = function() {
   this.answersView.render();
 }
 
-Game.prototype.answerSelected = function(cid) {
-  var answer = this.currentAnswers.get(cid);
-  console.log(answer.id, answer.attributes);
+Game.prototype.answerSelected = function(track, answerCid) {
+  var answer = this.currentAnswers.get(answerCid);
+  var self = this;
+  answer.save({
+    track_id: track.id
+  }, {
+    success: function() {
+      self.answerChecked.apply(self, arguments);
+    }
+  });
+}
+
+
+Game.prototype.answerChecked = function(answer) {
+  var track = this.tracks.get(answer.get('track_id'));
+  var result = answer.get('result') == 'correct' ? 2: 1;
+  track.set({
+    status: result,
+    artist: answer.get('correct').artist,
+    title: answer.get('correct').title
+  });
+
+  this.trigger('skipTrack');
 }

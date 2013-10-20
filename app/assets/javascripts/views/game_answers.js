@@ -14,12 +14,14 @@ GameAnswersView = Backbone.View.extend({
     this.$el.html(html);
 
     // Render answer views
+    var self = this;
     game.currentAnswers.each(function(answer) {
       var answerView = new GameAnswerView({
         model: answer
       });
 
       answerView.render();
+      self.answerViews.push(answerView);
     });
 
     this.$el.animate({
@@ -39,6 +41,6 @@ GameAnswersView = Backbone.View.extend({
   },
   answerSelected: function(e) {
     $answerEl = $(e.currentTarget);
-    game.trigger('answerSelected', $answerEl.data('cid'))
+    game.trigger('answerSelected', this.model, $answerEl.data('cid'));
   }
 });
