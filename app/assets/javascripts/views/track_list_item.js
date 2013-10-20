@@ -21,6 +21,13 @@ TrackListItemView = Backbone.View.extend({
     var $template = $(this.template).html();
     var html = _.template($template)(this.model.toJSON());
     this.$el.append(html);
+    this.$itemEl = this.$el.find('.media').last();
     this.changeStatus();
+  },
+  activate: function() {
+    this.$itemEl.addClass('active');
+  },
+  deactivate: function() {
+    this.$itemEl.removeClass('active');
   }
 });

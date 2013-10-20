@@ -11,9 +11,9 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
 //= require vendor/underscore
 //= require vendor/backbone
+//= require vendor/typeahead
 //= require vendor/buzz
 //= require_tree ./models
 //= require_tree ./views

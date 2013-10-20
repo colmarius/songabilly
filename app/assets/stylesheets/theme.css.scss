@@ -22,11 +22,11 @@ $gray-light:             darken(#efeff2, 5%);
 $gray-lighter:           #efeff2;
 
 // Brand colors
-$brand-primary:         #6395b1;
+$brand-primary:         #614491;
 $brand-success:         #e94700;
 $brand-warning:         #edcd3a;
 $brand-danger:          #d9534f; // default, needs override
-$brand-info:            #00be9c;
+$brand-info:            #16003b;
 
 // Scaffolding
 $body-bg:               #efeff2;
@@ -540,6 +540,14 @@ body {
   @include gradient-radial(#614491, #16003b);
 }
 
+.twitter-typeahead {
+  width: 100%;
+
+  .tt-hint {
+    display: none;
+  }
+}
+
 // Panels
 .panel {
   border-width: 3px;
@@ -564,13 +572,15 @@ body {
 
   .media {
     color: white;
+    @include opacity(.5);
+
     .glyphicon {
       font-size: 4em;
       margin-right: 10px;
     }
 
-    &.inactive {
-      @include opacity(.5);
+    &.active {
+      @include opacity(1);
     }
   }
 }
@@ -581,4 +591,25 @@ body {
   left: 0;
   bottom: 0;
   @include gradient-vertical(rgba(0,0,0,1), rgba(0,0,0,0))
+}
+
+.modal {
+  color: $brand-primary;
+
+  .media {
+    margin-left: 60px;
+    padding: 40px 0 20px;
+  }
+
+  .pull-left {
+    width: 60px;
+    height: 100px;
+    padding-top: 30px;
+    margin-top: -40px;
+
+    .glyphicon {
+      font-size: 4em;
+    }
+  }
+
 }

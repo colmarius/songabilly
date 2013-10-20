@@ -17,11 +17,15 @@
 
 Game = function(options) {
   this.tracks = new TrackListItemsCollection(options.trackList.tracks);
+  this.currentAnswers = new AnswerItemsCollection({
+    url: options.answersUrl
+  });
   this.currentTrack = 0;
   this.currentClip = null;
   this.trackViews = [];
   this.timer = false;
   this.time = options.time || 60000;
+  this.timeIncrement = 10;
 
   this.init();
   this.bindEvents();
@@ -65,6 +69,7 @@ Game.prototype.bindEvents = function() {
   this.bind('pauseTimer', this.pauseTimer);
   this.bind('answersRendered', this.answersRendered);
   this.bind('answersRemoved', this.answersRemoved);
+  this.bind('answerSelected', this.answerSelected);
 }
 
 Game.prototype.skipTrack = function() {
@@ -80,12 +85,21 @@ Game.prototype.trackTransition = function() {
   if(this.currentClip) {
     this.currentClip.stop();
   }
+
+  // Deactivate bullets
+  _.each(this.trackViews, function(view) {
+    view.deactivate();
+  });
+
   this.answersView.remove();
 }
 
 Game.prototype.playTrack = function(index) {
   var track = this.tracks.at(index);
   var clip = track.get('clipSound');
+
+  // Refresh ui
+  this.trackViews[index - 1].activate();
 
   // Unbind events
   if(this.currentClip) {
@@ -105,6 +119,10 @@ Game.prototype.playTrack = function(index) {
     game.trigger('pauseTimer', this);
   });
 
+  this.currentClip.bind('ended', function() {
+    game.trigger('resumeTimer', this);
+  });
+
   // Play clip
   clip.play();
 }
@@ -113,16 +131,15 @@ Game.prototype.resumeTimer = function(clip) {
   var self = this;
   this.timer = setInterval(function() {
     self.timerTick();
-  }, 1);
+  }, this.timeIncrement);
 }
 
 Game.prototype.pauseTimer = function() {
   clearInterval(this.timer);
-  console.log('pausing', this.timer)
 }
 
 Game.prototype.timerTick = function() {
-  this.time -= 1;
+  this.time -= this.timeIncrement;
   this.trigger('timerTick', this.time);
 }
 
@@ -131,13 +148,13 @@ Game.prototype.answersRendered = function() {
 }
 
 Game.prototype.answersRemoved = function() {
-  console.log(this.tracks.at(this.currentTrack))
-  this.answersView = new GameAnswersView({
-    model: this.tracks.at(this.currentTrack)
-  });
-
+  var trackModel = this.tracks.at(this.currentTrack);
+  this.currentAnswers.reset(trackModel.get('answers'));
+  this.answersView.model = trackModel;
   this.answersView.render();
 }
 
-
-var game;
+Game.prototype.answerSelected = function(cid) {
+  var answer = this.currentAnswers.get(cid);
+  console.log(answer.id, answer.attributes);
+}

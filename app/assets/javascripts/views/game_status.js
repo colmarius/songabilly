@@ -6,7 +6,6 @@ GameStatusView = Backbone.View.extend({
     var html = _.template($template)();
     this.$el.append(html);
     this.$timerEl = this.$el.find('h1');
-    console.log(this.$timerEl)
     game.bind('timerTick', this.updateTime, this);
   },
   updateTime: function(time) {
