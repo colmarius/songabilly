@@ -1,5 +1,4 @@
-class Api::GameController < ApplicationController
-  respond_to :json
+class Api::GameController < Api::BaseController
   protect_from_forgery with: :null_session
 
   def index
