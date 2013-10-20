@@ -3,6 +3,7 @@ class Api::GameController < Api::BaseController
 
   def index
     genre = params[:genre]
+    genre = 'salsa' if genre.blank?
     render json: GameEntry.create_new(genre).to_json
   end
 
