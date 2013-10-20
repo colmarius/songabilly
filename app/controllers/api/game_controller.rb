@@ -28,9 +28,9 @@ class Api::GameController < Api::BaseController
   end
 
   def check
-    game_id = params[:id]
-    track_id = params[:track_id]
-    render json: { status: ['good', 'bad'].sample }
+    game = GameEntry.find(params[:id])
+    result = game.has_correct?(params[:answers]) ? 'good' : 'bad'
+    render json: { status: result }
   end
 
   def answer
