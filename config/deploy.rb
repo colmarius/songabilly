@@ -78,6 +78,9 @@ after 'deploy:update_code' do
   run "cp #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   run "cp #{shared_path}/config/settings/local.rb #{release_path}/config/settings/local.rb"
 
+  # Run migrations
+  run "cd #{release_path}; RAILS_ENV=production bundle exec rake db:migrate"
+
   # Compile Assets
   run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
 end
