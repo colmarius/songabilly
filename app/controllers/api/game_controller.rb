@@ -8,7 +8,8 @@ class Api::GameController < ApplicationController
   end
 
   def create
-    genre = Genre.where(name: 'jazz').first
+    genre = Genre.where(name: params[:genre]).first
+    genre ||= Genre.first
     game = GameGenerator.create_game(nil, genre)
     render json: {
       id: game.id,
