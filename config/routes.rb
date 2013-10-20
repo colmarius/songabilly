@@ -12,6 +12,11 @@ SpazzaRubini::Application.routes.draw do
         post :check
       end
     end
+    resources :track, only: [] do
+      member do
+        post :answer
+      end
+    end
     resources :genres, only: [:index] do
     end
   end
