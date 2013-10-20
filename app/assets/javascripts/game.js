@@ -28,13 +28,13 @@ Game = function(options) {
   this.timeIncrement = 10;
   this.status = 0;
 
-  this.init();
+  this.init(options);
   this.bindEvents();
 }
 
-Game.prototype.init = function() {
+Game.prototype.init = function(options) {
   // Game status
-  this.gameStatus = new GameStatusView({});
+  this.gameStatus = new GameStatusView({genre: options.genre});
 
   // Game controls
   this.gameControls = new GameControlsView();
