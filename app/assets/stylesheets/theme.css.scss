@@ -538,7 +538,7 @@ html, body {
 
 body {
   @include gradient-radial(#614491, #16003b);
-  background-repeat: repeat;
+  background-attachment: fixed;
 }
 
 .twitter-typeahead {
@@ -609,11 +609,12 @@ body {
 }
 
 #track-list {
-  margin: 0;
+  margin: 200px 0 0;
   padding: 0;
   list-style: none;
 
   .media {
+    height: 80px;
     color: white;
     @include opacity(.5);
 
@@ -630,14 +631,49 @@ body {
       @include opacity(1);
     }
   }
+
+  .progress {
+    display: none;
+    margin-top: 20px;
+  }
+}
+
+#game-status {
+  h1 {
+    font-size: 4em;
+
+    .milliseconds {
+      font-weight: 300;
+    }
+  }
 }
 
 #game-controls {
-  span.glyphicon {
+  padding: 0;
+  color: #ffffff;
+
+  #game-button {
+    cursor: pointer;
+    text-align: center;
     display: block;
-    font-size: 80px;
-    height: 100px;
-    padding-left: 24px;
+    background: transparent;
+    border: none;
+  }
+
+  span {
+    color: #ffffff;
+
+    &.glyphicon {
+      width: 100%;
+      display: inline-block;
+      font-size: 120px;
+      height: 160px;
+    }
+
+    &.gameStatus {
+      font-size: 20px;
+      font-weight: 300;
+    }
   }
 }
 
@@ -668,5 +704,4 @@ body {
       font-size: 4em;
     }
   }
-
 }
