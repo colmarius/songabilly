@@ -16,6 +16,7 @@
 // }
 
 Game = function(options) {
+  this.id = options.id;
   this.tracks = new TrackListItemsCollection(options.trackList.tracks);
   this.currentAnswers = new AnswerItemsCollection({
     url: options.answersUrl
@@ -199,17 +200,35 @@ Game.prototype.answerSelected = function(track, answerCid) {
 
 
 Game.prototype.answerChecked = function(answer) {
+  console.log(answer);
   var track = this.tracks.get(answer.get('track_id'));
   var result = answer.get('result') == 'correct' ? 2: 1;
   track.set({
     status: result,
     artist: answer.get('correct').artist,
-    title: answer.get('correct').title
+    title: answer.get('correct').title,
+    answer_id: answer.get('answer_id')
   });
 
   this.trigger('skipTrack');
 }
 
 Game.prototype.gameOver = function() {
-  console.log('game over!');
+  var answers = this.tracks.map(function(track) {
+    return {
+      track_id: track.id,
+      answer_id: track.get('answer_id')
+    }
+  });
+
+  $.ajax({
+    url: '/api/game/'+ this.id +'/check',
+    data: {
+      answers: answers
+    },
+    type: 'post',
+    success: function(result) {
+      console.log(result);
+    }
+  });
 }

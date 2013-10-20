@@ -11,8 +11,8 @@ class GameEntry < ActiveRecord::Base
   end
 
   def has_correct?(track_answers)
-    received = track_answers.map { |t|
-      [t[:track_id], t[:answer_id]]
+    received = track_answers.map { |t, v|
+      [v[:track_id], v[:answer_id]]
     }.sort
 
     correct = track_entries.map { |t|
