@@ -7,7 +7,7 @@ SpazzaRubini::Application.routes.draw do
   resources :static
 
   namespace :api do
-    resources :game, only: [:index] do
+    resources :game, only: [:index, :create] do
     end
   end
 
