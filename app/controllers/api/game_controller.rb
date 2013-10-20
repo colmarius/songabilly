@@ -16,12 +16,11 @@ class Api::GameController < ApplicationController
       quizzes: game.quizzes.map { |q|
         {
           id: q.id,
-          url: q.right_answer.audio_clip_url,
+          audio_clip_url: q.right_answer.audio_clip_url,
           valid_choices: q.options.map { |o|
             {
               id: o.echonest_track_id,
               title: o.title,
-              audio_clip_url: o.audio_clip_url,
               artist: o.artist.name
             }
           }
