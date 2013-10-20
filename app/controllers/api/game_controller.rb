@@ -2,29 +2,31 @@ class Api::GameController < Api::BaseController
   protect_from_forgery with: :null_session
 
   def index
-    genre = params[:genre]
-    render json: GameEntry.create_new(genre).to_json
-  end
+  #   genre = params[:genre]
+  #   render json: GameEntry.create_new(genre).to_json
+  # end
 
-  def create
-    genre = Genre.where(name: params[:genre]).first
-    game = GameGenerator.create_game(nil, genre)
-    render json: {
-      id: game.id,
-      quizzes: game.quizzes.map { |q|
-        {
-          id: q.id,
-          audio_clip_url: q.right_answer.audio_clip_url,
-          valid_choices: q.options.map { |o|
-            {
-              id: o.echonest_track_id,
-              title: o.title,
-              artist: o.artist.name
-            }
-          }
-        }
-      }
-    }
+  # def create
+    genre = Genre.where(name: params[:genre]).first || Genre.first
+
+    render json: GameGenerator.create_game(nil, genre).to_api
+
+    # render json: {
+    #   id: game.id,
+    #   quizzes: game.quizzes.map { |q|
+    #     {
+    #       id: q.id,
+    #       audio_clip_url: q.right_answer.audio_clip_url,
+    #       valid_choices: q.options.map { |o|
+    #         {
+    #           id: o.echonest_track_id,
+    #           title: o.title,
+    #           artist: o.artist.name
+    #         }
+    #       }
+    #     }
+    #   }
+    # }
   end
 
   def check

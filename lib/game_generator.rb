@@ -6,7 +6,7 @@ class GameGenerator
     if need_to_fetch_tracks?(user, genre)
       Echonest::TrackFetcher.fetch(genre)
     end
-    tracks = Track.limit(TRACKS_NUMER * CHOICES_NUMBER).order("RAND()")
+    tracks = Track.where(genre: genre).limit(TRACKS_NUMER * CHOICES_NUMBER).order("RAND()")
     tracks.shuffle.each_slice(CHOICES_NUMBER) do |choices|
       @game.quizzes.create(options: choices, right_answer: choices.sample)
     end
