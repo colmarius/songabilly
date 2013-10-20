@@ -18,7 +18,7 @@ module Echonest
           t.audio_clip_url = track[:tracks].first['preview_url']
           t.artist = artist
           t.genre = genre
-        end
+        end unless track[:tracks].empty? or track[:tracks].first['preview_url'].empty?
       end
     end
   end
