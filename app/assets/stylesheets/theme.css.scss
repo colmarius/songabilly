@@ -654,10 +654,8 @@ body {
 
   #game-button {
     cursor: pointer;
-    display: block;
-    font-size: 80px;
-    height: 100px;
     text-align: center;
+    display: block;
     background: transparent;
     border: none;
   }
@@ -666,7 +664,8 @@ body {
     color: #ffffff;
 
     &.glyphicon {
-      display: block;
+      width: 100%;
+      display: inline-block;
       font-size: 120px;
       height: 160px;
     }

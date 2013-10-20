@@ -6,7 +6,7 @@ GameControlsView = Backbone.View.extend({
   },
   status: 0,
   changeStatus: function() {
-    var statusIconClass = 'media-object glyphicon '
+    var statusIconClass = 'glyphicon '
     switch(this.status) {
       case 0:
         statusIconClass += '.glyphicon glyphicon-off'
