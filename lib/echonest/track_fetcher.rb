@@ -16,6 +16,7 @@ module Echonest
         Track.find_or_create_by(echonest_track_id: track[:id]) do |t|
           t.title = track[:title]
           t.audio_clip_url = track[:tracks].first['preview_url']
+          t.thumbnail_url = track[:tracks].first['release_image']
           t.artist = artist
           t.genre = genre
         end unless track[:tracks].empty? or track[:tracks].first['preview_url'].empty?

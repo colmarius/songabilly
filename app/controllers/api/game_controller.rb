@@ -49,7 +49,7 @@ class Api::GameController < ApplicationController
         correct_answer: {
           title: quiz.right_answer.title,
           artist: quiz.right_answer.artist.name,
-          thumbnail_url: 'http://e.sticazzi.com/'
+          thumbnail_url: quiz.right_answer.thumbnail_url
         }
       }
     end
