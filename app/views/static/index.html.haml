@@ -2,7 +2,7 @@
   .row
     .col-md-8.col-md-offset-2
       %h1 Song-o-matic
-      %p Lorem ipsum dolor sit amet.
+      %p What's your favorite music?
 
       %form.form-inline{action: "#{game_path}", method: 'post'}
         =tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
