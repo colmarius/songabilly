@@ -541,6 +541,15 @@ body {
   background-attachment: fixed;
 }
 
+.container .jumbotron {
+  padding: 0;
+  background: transparent;
+
+  form {
+    margin-top: 50px;
+  }
+}
+
 .twitter-typeahead {
   width: 100%;
 
@@ -702,6 +711,36 @@ body {
 
     .glyphicon {
       font-size: 4em;
+    }
+  }
+}
+
+#game-ending {
+  display: block;
+  width: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -147px;
+  margin-left: -300px;
+
+  .pull-left {
+    margin-right: 40px;
+  }
+
+  .glyphicon {
+    font-size: 12em;
+  }
+
+  .media-body {
+    margin-top: 30px;
+
+    h4 {
+      font-size: 4em;
+    }
+
+    p {
+      font-size: 2em;
     }
   }
 }

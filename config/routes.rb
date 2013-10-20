@@ -3,6 +3,7 @@ SpazzaRubini::Application.routes.draw do
   post 'game' => 'static#game'
 
   get "game/index"
+  get 'end' => "static#end"
 
   resources :static
 
@@ -23,6 +24,6 @@ SpazzaRubini::Application.routes.draw do
   end
 
   root 'static#index'
-  
+
   # root "game#index"
 end
