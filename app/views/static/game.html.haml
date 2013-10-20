@@ -22,6 +22,9 @@
             %h4.media-heading We are preparing your challenge!
             %p Wait a bit while we fetch some juicy tracks.
 
+#game-form-submission
+
+
 %script#trackListItemTemplate{type: 'text/template'}
   .media.inactive
     .pull-left
@@ -78,6 +81,7 @@
       },
       success: function(data) {
         game = new Game({
+          id: data.id,
           genre: "#{@genre}",
           trackList: data,
           answersUrl: '/api/game/'
