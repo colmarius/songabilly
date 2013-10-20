@@ -7,12 +7,30 @@ class TrackEntry < ActiveRecord::Base
   
   # validates :game_entry, presence: true
 
+
+  # Payload Getters
+  def track_id       ; payload[:track_id]       ; end
+  def correct_answer ; payload[:correct_answer] ; end
+  def preview_url    ; payload[:preview_url]    ; end
+  def answers        ; payload[:answers]        ; end
+
+  # Payload Setters
+  def track_id=(val)       ; payload[:track_id]=val       ; end
+  def correct_answer=(val) ; payload[:correct_answer]=val ; end
+  def preview_url=(val)    ; payload[:preview_url]=val    ; end
+  def answers=(val)        ; payload[:answers]=val        ; end
+
+
+  def is_correct?(answer_id)
+    correct_answer[:answer_id].to_s == answer_id.to_s
+  end
+
   def to_json
     {
       id: id,
-      correct_answer: payload[:correct_answer],
-      preview_url: payload[:preview_url],
-      answers: payload[:answers]
+      correct_answer: correct_answer,
+      preview_url: preview_url,
+      answers: answers
     }
   end
 
@@ -30,12 +48,12 @@ class TrackEntry < ActiveRecord::Base
       current_track = tracks[index]
 
       if index == chosen_answer_id
-        t.payload[:track_id] = current_track[:id]
-        t.payload[:correct_answer] = answer_for(current_track, index)
-        t.payload[:preview_url] = current_track[:tracks].first['preview_url']
+        t.track_id = current_track[:id]
+        t.correct_answer = answer_for(current_track, index)
+        t.preview_url = current_track[:tracks].first['preview_url']
       end
 
-      t.payload[:answers] << answer_for(current_track, index)
+      t.answers << answer_for(current_track, index)
     end
 
     t.save ? t : nil
