@@ -5,7 +5,13 @@ class Api::TrackController < ApplicationController
     track = TrackEntry.find(params[:id])
 
     if !track.is_correct? params['check_id']
-      render json: { result: 'wrong' }
+      render json: {
+        result: 'wrong',
+        correct: {
+          artist: track.correct_answer[:artist],
+          title: track.correct_answer[:title]
+        }
+      }
     else
       render json: {
         result: 'correct',

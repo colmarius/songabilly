@@ -26,6 +26,9 @@ TrackListItemView = Backbone.View.extend({
   },
   activate: function() {
     this.$itemEl.addClass('active');
+    this.model.on('change', function() {
+      console.log(arguments);
+    });
   },
   deactivate: function() {
     this.$itemEl.removeClass('active');

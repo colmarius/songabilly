@@ -20,7 +20,7 @@ Game = function(options) {
   this.currentAnswers = new AnswerItemsCollection({
     url: options.answersUrl
   });
-  this.currentTrack = 0;
+  this.currentTrack = -1;
   this.currentClip = null;
   this.trackViews = [];
   this.timer = false;
@@ -99,7 +99,7 @@ Game.prototype.playTrack = function(index) {
   var clip = track.get('clipSound');
 
   // Refresh ui
-  this.trackViews[index - 1].activate();
+  this.trackViews[index].activate();
 
   // Unbind events
   if(this.currentClip) {
@@ -154,12 +154,24 @@ Game.prototype.answersRemoved = function() {
   this.answersView.render();
 }
 
-Game.prototype.answerSelected = function(cid) {
-  var answer = this.currentAnswers.get(cid);
+Game.prototype.answerSelected = function(track, answerCid) {
+  var answer = this.currentAnswers.get(answerCid);
+  var self = this;
   answer.save({
+    track_id: track.id
+  }, {
     success: function() {
-      console.log('success', arguments);
+      self.answerChecked.apply(self, arguments);
     }
   });
-  // console.log(answer.id, answer.attributes);
+}
+
+
+Game.prototype.answerChecked = function(answer) {
+  var track = this.tracks.get(answer.get('track_id'));
+  track.set({
+    result: answer.get('result'),
+    artist: answer.get('correct').artist,
+    title: answer.get('correct').title
+  });
 }
