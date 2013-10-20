@@ -540,6 +540,14 @@ body {
   @include gradient-radial(#614491, #16003b);
 }
 
+.twitter-typeahead {
+  width: 100%;
+
+  .tt-hint {
+    display: none;
+  }
+}
+
 // Panels
 .panel {
   border-width: 3px;

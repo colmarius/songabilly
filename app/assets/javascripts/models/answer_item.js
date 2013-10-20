@@ -1,4 +1,5 @@
 var AnswerItemModel = Backbone.Model.extend({
+  idAttribute: 'answer_id',
   defaults: {
     artist: '',
     title: ''

@@ -19,13 +19,6 @@ ActiveRecord::Schema.define(version: 20131019230050) do
     t.datetime "updated_at"
   end
 
-  create_table "guess_tracks", force: true do |t|
-    t.string   "payload"
-    t.string   "genre"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "track_entries", force: true do |t|
     t.integer  "game_entry_id"
     t.text     "payload"
