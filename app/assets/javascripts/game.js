@@ -176,4 +176,6 @@ Game.prototype.answerChecked = function(answer) {
     artist: answer.get('correct').artist,
     title: answer.get('correct').title
   });
+
+  this.trigger('skipTrack');
 }

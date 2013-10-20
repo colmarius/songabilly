@@ -13,14 +13,16 @@ GameControlsView = Backbone.View.extend({
         break;
       case 1:
         statusIconClass += 'glyphicon glyphicon-play-circle'
+        game.trigger('skipTrack');
         break;
       case 2:
         statusIconClass += 'glyphicon glyphicon-refresh'
+        // game.trigger('pauseTimer');
         break;
     }
 
     this.$el.find('.glyphicon').attr('class', statusIconClass);
-    var labels = ['Start', 'Can you guess it?', 'Loading'];
+    var labels = ['Start', 'Playing', 'Loading'];
     this.$el.find('.gameStatus').text(labels[this.status]);
   },
   render: function() {
