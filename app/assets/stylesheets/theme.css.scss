@@ -546,6 +546,37 @@ body {
   .tt-hint {
     display: none;
   }
+
+  .tt-dropdown-menu {
+    width: 100%;
+    background: rgba(0, 0, 0, .5);
+    padding: 10px 0;
+
+    .tt-suggestion {
+      padding: 10px 20px;
+
+      &:hover {
+        background: #614491;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+
+#genre-selection {
+  border: none;
+  border-bottom: 1px solid white;
+  border-radius: 0;
+  @include box-shadow(0 0 0);
+  background: transparent;
+  padding: 0;
+  color: white;
+  font-weight: 300;
+  font-size: 40px;
+  height: 70px;
 }
 
 // Panels
