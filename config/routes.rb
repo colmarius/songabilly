@@ -9,6 +9,7 @@ SpazzaRubini::Application.routes.draw do
   namespace :api do
     resources :game, only: [:index, :create] do
       member do
+        post 'quiz/:quiz_id/answer', to: :answer
         post :check
       end
     end

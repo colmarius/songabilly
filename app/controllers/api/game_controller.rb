@@ -35,4 +35,24 @@ class Api::GameController < ApplicationController
     track_id = params[:track_id]
     render json: { status: ['good', 'bad'].sample }
   end
+
+  def answer
+    game = Game.find(params[:id])
+    quiz = game.quizzes.find(params[:quiz_id])
+    answer_id = params[:answer_id]
+    if quiz.correct?(answer_id)
+      render json: {
+        status: 'correct'
+      }
+    else
+      render json: {
+        status: 'wrong',
+        correct_answer: {
+          title: quiz.right_answer.title,
+          artist: quiz.right_answer.artist.name,
+          thumbnail_url: 'http://e.sticazzi.com/'
+        }
+      }
+    end
+  end
 end
