@@ -609,7 +609,7 @@ body {
 }
 
 #track-list {
-  margin: 0;
+  margin: 40px 0 0;
   padding: 0;
   list-style: none;
 
@@ -632,12 +632,43 @@ body {
   }
 }
 
+#game-status {
+  h1 {
+    font-size: 4em;
+
+    .milliseconds {
+      font-weight: 300;
+    }
+  }
+}
+
 #game-controls {
-  span.glyphicon {
+  padding: 0;
+  color: #ffffff;
+
+  #game-button {
+    cursor: pointer;
     display: block;
     font-size: 80px;
     height: 100px;
-    padding-left: 24px;
+    text-align: center;
+    background: transparent;
+    border: none;
+  }
+
+  span {
+    color: #ffffff;
+
+    &.glyphicon {
+      display: block;
+      font-size: 120px;
+      height: 160px;
+    }
+
+    &.gameStatus {
+      font-size: 20px;
+      font-weight: 300;
+    }
   }
 }
 
@@ -668,5 +699,4 @@ body {
       font-size: 4em;
     }
   }
-
 }

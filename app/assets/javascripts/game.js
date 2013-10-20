@@ -27,6 +27,7 @@ Game = function(options) {
   this.time = options.time || 60000;
   this.timeIncrement = 10;
   this.status = 0;
+  this.closedAnswers = 0;
 
   this.init(options);
   this.bindEvents();
@@ -79,12 +80,18 @@ Game.prototype.skipTrack = function() {
     this.currentTrack = 0;
   }
 
+  while(this.tracks.at(this.currentTrack) && this.tracks.at(this.currentTrack).get('status') != 0) {
+    this.currentTrack += 1;
+  }
+
   this.trackTransition();
 }
 
 Game.prototype.trackTransition = function() {
   if(this.currentClip) {
     this.currentClip.stop();
+  } else {
+    game.trigger('pauseTimer', this);
   }
 
   // Deactivate bullets
@@ -149,10 +156,23 @@ Game.prototype.answersRendered = function() {
 }
 
 Game.prototype.answersRemoved = function() {
-  var trackModel = this.tracks.at(this.currentTrack);
-  this.currentAnswers.reset(trackModel.get('answers'));
-  this.answersView.model = trackModel;
-  this.answersView.render();
+  this.checkProgress();
+}
+
+Game.prototype.checkProgress = function() {
+  var answeredTracks = this.tracks.filter(function(track) {
+    return track.get('status') != 0;
+  });
+  if(answeredTracks.length == this.tracks.length) {
+    this.gameOver();
+  } else {
+    var trackModel = this.tracks.at(this.currentTrack);
+    this.currentAnswers.reset(trackModel.get('answers'));
+    this.answersView.model = trackModel;
+    this.answersView.render();
+  }
+
+  this.trigger('answerConfirmed', answeredTracks.length, this.tracks.length);
 }
 
 Game.prototype.answerSelected = function(track, answerCid) {
@@ -178,4 +198,8 @@ Game.prototype.answerChecked = function(answer) {
   });
 
   this.trigger('skipTrack');
+}
+
+Game.prototype.gameOver = function() {
+  console.log('game over!');
 }

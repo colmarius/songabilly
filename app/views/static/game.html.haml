@@ -1,9 +1,9 @@
 .container
   .row
-    .col-md-10
+    .col-md-9
       #track-list
 
-    .col-md-2
+    .col-md-3
       #game-status
       #game-controls
 
@@ -33,17 +33,18 @@
 %script#gameStatusTemplate{type: 'text/template'}
   .panel.panel-default
     .panel-body
-      %h1 1:00
+      %h1
+        %span.seconds 60
+        %span.milliseconds 000
     .panel-footer
-      Genre:
-      %strong <%= genre || 'salsa' %>
+      %h3
+        %span.genre= @genre
+        %span.resume 0/10
 
 %script#gameControlsTemplate{type: 'text/template'}
-  .panel.panel-default
-    .panel-body
-      %button.btn.btn-primary.btn-lg.btn-block#game-button
-        %span.glyphicon
-        %span.gameStatus
+  %div#game-button
+    %span.glyphicon
+    %span.gameStatus
 
 %script#gameAnswersTemplate{type: 'text/template'}
   .container

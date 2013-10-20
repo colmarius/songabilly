@@ -16,8 +16,8 @@ TrackListItemView = Backbone.View.extend({
     }
 
     this.$itemEl.find('span').attr('class', statusIconClass);
-    this.$itemEl.find('h4').text(this.model.get('artist'))
-    this.$itemEl.find('h5').text(this.model.get('title'))
+    this.$itemEl.find('h4').text(this.model.get('artist'));
+    this.$itemEl.find('h5').text(this.model.get('title'));
   },
   render: function() {
     var $template = $(this.template).html();
