@@ -538,6 +538,7 @@ html, body {
 
 body {
   @include gradient-radial(#614491, #16003b);
+  background-repeat: repeat;
 }
 
 .twitter-typeahead {
