@@ -36,14 +36,15 @@ class TrackEntry < ActiveRecord::Base
 
   def self.generate(genre, count)
     tracks = retrieve(genre, count * 3)
-    tracks.each_slice(3).map { |batch| TrackEntry.create_new(batch) }
+    tracks.each_slice(3).map { |batch| TrackEntry.create_new(batch, genre) }
   end
 
-  def self.create_new(tracks)
+  def self.create_new(tracks, genre)
     t = TrackEntry.new
     chosen_answer_id = choose_id_from(tracks)
 
-    t.payload[:answers] = []
+    t.answers = []
+    t.genre = genre
     tracks.each_with_index do |track, index|
       current_track = tracks[index]
 
