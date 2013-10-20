@@ -1,10 +1,10 @@
 class GameGenerator
   TRACKS_NUMER = 10
   CHOICES_NUMBER = 3
-  def initialize(user, genre)
+  def self.create_game(user, genre)
     @game = Game.create(genre: genre)
     if need_to_fetch_tracks?(user, genre)
-      Echonest::TrackFetcher.fetch(genre.name)
+      Echonest::TrackFetcher.fetch(genre)
     end
     tracks = Track.limit(TRACKS_NUMER * CHOICES_NUMBER).order("RAND()")
     tracks.shuffle.each_slice(CHOICES_NUMBER) do |choices|
@@ -13,7 +13,7 @@ class GameGenerator
     @game
   end
 
-  def need_to_fetch_tracks?(user, genre)
+  def self.need_to_fetch_tracks?(user, genre)
     # (Track.where(genre: genre).count - user.viewed_track(genre)) < (TRACKS_NUMER * CHOICES_NUMBER)
     true
   end
