@@ -114,10 +114,15 @@ Game.prototype.playTrack = function(index) {
     this.currentClip.stop();
     this.currentClip.unbind('play');
     this.currentClip.unbind('pause');
+    this.currentClip.unbind('timeupdate');
   }
 
   // Bind events
   this.currentClip = clip;
+
+  this.currentClip.bind('timeupdate', function() {
+    game.trigger('timeUpdate', this.getDuration(), this.getTime());
+  });
 
   this.currentClip.bind('play', function() {
     game.trigger('resumeTimer', this);

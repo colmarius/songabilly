@@ -538,7 +538,7 @@ html, body {
 
 body {
   @include gradient-radial(#614491, #16003b);
-  background-repeat: repeat;
+  background-attachment: fixed;
 }
 
 .twitter-typeahead {
@@ -614,6 +614,7 @@ body {
   list-style: none;
 
   .media {
+    height: 80px;
     color: white;
     @include opacity(.5);
 
@@ -629,6 +630,11 @@ body {
     &.active {
       @include opacity(1);
     }
+  }
+
+  .progress {
+    display: none;
+    margin-top: 20px;
   }
 }
 

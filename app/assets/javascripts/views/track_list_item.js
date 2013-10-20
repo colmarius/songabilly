@@ -9,9 +9,11 @@ TrackListItemView = Backbone.View.extend({
         break;
       case 1:
         statusIconClass += 'glyphicon-remove-circle'
+        this.$barEl.parent().hide();
         break;
       case 2:
         statusIconClass += 'glyphicon-ok-circle'
+        this.$barEl.parent().hide();
         break;
     }
 
@@ -24,6 +26,7 @@ TrackListItemView = Backbone.View.extend({
     var html = _.template($template)(this.model.toJSON());
     this.$el.append(html);
     this.$itemEl = this.$el.find('.media').last();
+    this.$barEl = this.$itemEl.find('.progress-bar');
     this.changeStatus();
   },
   activate: function() {
@@ -33,8 +36,16 @@ TrackListItemView = Backbone.View.extend({
     this.model.on('change:status', function() {
       self.changeStatus.call(self);
     });
+
+    this.$barEl.parent().fadeIn();
+    game.bind('timeUpdate', this.timeUpdate, this);
   },
   deactivate: function() {
+    this.$barEl.parent().fadeOut();
     this.$itemEl.removeClass('active');
+    game.unbind('timeUpdate');
+  },
+  timeUpdate: function(total, elapsed) {
+    this.$barEl.width(Math.round(elapsed / total * 100) + '%');
   }
 });
