@@ -13,7 +13,7 @@ class Api::GameController < ApplicationController
     game = GameGenerator.create_game(nil, genre)
     render json: {
       id: game.id,
-      tracks: game.quizzes.map { |q|
+      quizzes: game.quizzes.map { |q|
         {
           id: q.id,
           url: q.right_answer.audio_clip_url,
