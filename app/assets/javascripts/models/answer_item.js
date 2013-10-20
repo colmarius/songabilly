@@ -1,5 +1,8 @@
 var AnswerItemModel = Backbone.Model.extend({
-  idAttribute: 'answer_id',
+  // idAttribute: 'answer_id',
+  urlRoot: function() {
+    return '/api/track/' + this.get('answer_id') + '/answer';
+  },
   defaults: {
     artist: '',
     title: ''
@@ -7,5 +10,5 @@ var AnswerItemModel = Backbone.Model.extend({
 });
 
 var AnswerItemsCollection = Backbone.Collection.extend({
-  model: AnswerItemModel
+  model: AnswerItemModel,
 });

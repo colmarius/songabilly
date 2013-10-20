@@ -156,5 +156,10 @@ Game.prototype.answersRemoved = function() {
 
 Game.prototype.answerSelected = function(cid) {
   var answer = this.currentAnswers.get(cid);
-  console.log(answer.id, answer.attributes);
+  answer.save({
+    success: function() {
+      console.log('success', arguments);
+    }
+  });
+  // console.log(answer.id, answer.attributes);
 }
