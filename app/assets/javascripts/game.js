@@ -1,20 +1,3 @@
-// var trackList = {
-//   id: 'Titolo tracklist',
-//   tracks: [{
-//       id: '_1',
-//       clip: 'http://previews.7digital.com/clips/34/16237034.clip.mp3',
-//       answers: [{
-//           artist: 'John Bon Jovi',
-//           title: 'Lullabe'
-//         }, {
-//           artist: 'Pincopallo',
-//           title: 'Che due palle'
-//         }
-//       ]
-//     }
-//   ]
-// }
-
 Game = function(options) {
   this.id = options.id;
   this.tracks = new TrackListItemsCollection(options.trackList.tracks);
@@ -160,6 +143,11 @@ Game.prototype.pauseTimer = function() {
 Game.prototype.timerTick = function() {
   this.time -= this.timeIncrement;
   this.trigger('timerTick', this.time);
+
+  if(this.time <= 0) {
+    this.trigger('pauseTimer');
+    this.gameOver();
+  }
 }
 
 Game.prototype.answersRendered = function() {
@@ -200,7 +188,6 @@ Game.prototype.answerSelected = function(track, answerCid) {
 
 
 Game.prototype.answerChecked = function(answer) {
-  console.log(answer);
   var track = this.tracks.get(answer.get('track_id'));
   var result = answer.get('result') == 'correct' ? 2: 1;
   track.set({
@@ -221,6 +208,7 @@ Game.prototype.gameOver = function() {
     }
   });
 
+  var self = this;
   $.ajax({
     url: '/api/game/'+ this.id +'/check',
     data: {
@@ -228,7 +216,26 @@ Game.prototype.gameOver = function() {
     },
     type: 'post',
     success: function(result) {
-      console.log(result);
+      self.finalScreen(result);
     }
+  });
+}
+
+Game.prototype.finalScreen = function(result) {
+  var rightTracks = this.tracks.filter(function(track) {
+    return track.get('status') == 2;
+  });
+
+  var self = this;
+  $('#content').fadeOut(400, function() {
+    $(this).remove();
+    self.gameEndingView = new GameEndingView({
+      model: {
+        title: result.status == 'good' ? 'You made it!': 'Quite there!',
+        ratio: rightTracks.length + '/' + self.tracks.length,
+        points: 1000 * rightTracks.length + self.time
+      }
+    });
+    self.gameEndingView.render()
   });
 }

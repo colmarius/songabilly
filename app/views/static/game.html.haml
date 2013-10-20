@@ -1,29 +1,27 @@
-.container
-  .row
-    .col-md-9
-      #track-list
+#content
+  .container
+    .row
+      .col-md-9
+        #track-list
 
-    .col-md-3
-      #game-status
-      #game-controls
+      .col-md-3
+        #game-status
+        #game-controls
 
-#game-answers
+  #game-answers
 
-#loading-modal.modal
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %h4.modal-title Loading...
-      .modal-body
-        .media
-          .pull-left
-            %span.glyphicon.glyphicon-music.animated.bounce
-          .media-body
-            %h4.media-heading We are preparing your challenge!
-            %p Wait a bit while we fetch some juicy tracks.
-
-#game-form-submission
-
+  #loading-modal.modal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %h4.modal-title Loading...
+        .modal-body
+          .media
+            .pull-left
+              %span.glyphicon.glyphicon-music.animated.bounce
+            .media-body
+              %h4.media-heading We are preparing your challenge!
+              %p Wait a bit while we fetch some juicy tracks.
 
 %script#trackListItemTemplate{type: 'text/template'}
   .media.inactive
@@ -64,6 +62,18 @@
       .panel-body
         %h5 <%= artist %>
         %h4 <%= title %>
+
+%script#gameEndingTemplate{type: 'text/template'}
+  #game-ending
+    .media
+      .pull-left
+        %span.glyphicon.glyphicon-certificate
+      .media-body
+        %h4.media-heading <%= title %>
+        %p
+          With a <%= ratio %>, you got
+          %strong <%= points %>
+          points.
 
 =javascript_include_tag 'game'
 :javascript
