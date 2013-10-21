@@ -1,24 +1,21 @@
+require 'jsonlike/document'
+
 class TrackEntry < ActiveRecord::Base
 
   include Trackable
+  include JsonLike::Document
 
   belongs_to :game_entry
   serialize :payload, Hash
   
   # validates :game_entry, presence: true
 
+  payload_name :payload
 
-  # Payload Getters
-  def track_id       ; payload[:track_id]       ; end
-  def correct_answer ; payload[:correct_answer] ; end
-  def preview_url    ; payload[:preview_url]    ; end
-  def answers        ; payload[:answers]        ; end
-
-  # Payload Setters
-  def track_id=(val)       ; payload[:track_id]=val       ; end
-  def correct_answer=(val) ; payload[:correct_answer]=val ; end
-  def preview_url=(val)    ; payload[:preview_url]=val    ; end
-  def answers=(val)        ; payload[:answers]=val        ; end
+  field :track_id
+  field :correct_answer
+  field :preview_url
+  field :answers
 
 
   def is_correct?(answer_id)
